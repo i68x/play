@@ -23,21 +23,41 @@
 </style>
 
 <div class="audio-controls">
-  <button onclick="document.getElementById('audio-player').play()">Play</button>
-  <button onclick="document.getElementById('audio-player').pause()">Pause</button>
-  <button onclick="stopAudio()">Stop</button>
+  <button onclick="skipAudio(-10)">-10 sec</button>
+  <button onclick="skipAudio(-5)">-5 sec</button>
+  <button onclick="document.getElementById('audio-player').currentTime -= 1">Prev</button>
+  <button onclick="document.getElementById('audio-player').paused ? document.getElementById('audio-player').play() : document.getElementById('audio-player').pause()">{playPause}</button>
+  <button onclick="document.getElementById('audio-player').currentTime += 1">Next</button>
+  <button onclick="skipAudio(5)">+5 sec</button>
+  <button onclick="skipAudio(10)">+10 sec</button>
 </div>
 
 <audio id="audio-player" autoplay loop>
-  <source src="S1.mp3" type="audio/mpeg">
-  <source src="S2.mp3" type="audio/mpeg">
+  <source src="s1.mp3" type="audio/mpeg">
+  <source src="s2.mp3" type="audio/mpeg">
+
   Your browser does not support the audio tag.
 </audio>
 
 <script>
-  function stopAudio() {
+  function skipAudio(time) {
     var audio = document.getElementById('audio-player');
-    audio.pause();
-    audio.currentTime = 0;
+    audio.currentTime += time;
   }
+
+  function updatePlayPauseButton() {
+    var audio = document.getElementById('audio-player');
+    var playPauseButton = document.getElementById('play-pause-button');
+    if (audio.paused) {
+      playPauseButton.textContent = 'Play';
+    } else {
+      playPauseButton.textContent = 'Pause';
+    }
+  }
+
+  document.getElementById('audio-player').addEventListener('play', updatePlayPauseButton);
+  document.getElementById('audio-player').addEventListener('pause', updatePlayPauseButton);
+  document.getElementById('audio-player').addEventListener('ended', function() {
+    skipAudio(1);
+  });
 </script>
