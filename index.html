@@ -1,13 +1,38 @@
-<audio id="audio-player" controls autoplay loop>
-  <source src="S1.mp3" type="audio/mpeg">
-  Your browser does not support the audio tag.
-</audio>
+<style>
+  .audio-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
 
-<div>
+  .audio-controls button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+
+  .audio-controls button:hover {
+    background-color: #555;
+  }
+</style>
+
+<div class="audio-controls">
   <button onclick="document.getElementById('audio-player').play()">Play</button>
   <button onclick="document.getElementById('audio-player').pause()">Pause</button>
   <button onclick="stopAudio()">Stop</button>
 </div>
+
+<audio id="audio-player" autoplay loop>
+  <source src="S1.mp3" type="audio/mpeg">
+  <source src="S2.mp3" type="audio/mpeg">
+  Your browser does not support the audio tag.
+</audio>
 
 <script>
   function stopAudio() {
